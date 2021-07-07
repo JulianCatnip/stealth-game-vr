@@ -95,11 +95,15 @@ public class Guard : MonoBehaviour
 
 		while (true)
 		{
+			// (re)enable walk anim
+			gameObject.GetComponent<Animator>().enabled = true;
 			transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
 			if (transform.position == targetWaypoint)
 			{
 				targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
 				targetWaypoint = waypoints[targetWaypointIndex];
+				// stop walk anim
+				gameObject.GetComponent<Animator>().enabled = false;
 				// wait at waypoint
 				yield return new WaitForSeconds(waitTime);
 				// then turn
