@@ -6,6 +6,7 @@ public class Guard : MonoBehaviour
 {
 	// event for player script to subcribe to
 	public static event System.Action OnGuardHasSpottedPlayer;
+	public static event System.Action OnGuardHeardDisturbance;
 
 	public float speed = 5;
 	public float waitTime = .3f;
@@ -24,6 +25,10 @@ public class Guard : MonoBehaviour
 	public Transform pathHolder;
 	Transform player;
 	Color originalSpotlightColour;
+
+
+	public AudioSource[] noises;
+	private AudioSource noiseScource;
 
 	void Start()
 	{
@@ -60,9 +65,13 @@ public class Guard : MonoBehaviour
 		if (playerVisibleTimer >= timeToSpotPlayer)
 		{
 			if (OnGuardHasSpottedPlayer != null)
-			{
 				OnGuardHasSpottedPlayer();
-			}
+		}
+
+		if (HeardDisturbance())
+		{
+			if (OnGuardHasSpottedPlayer != null)
+				OnGuardHeardDisturbance();
 		}
 	}
 
@@ -85,6 +94,19 @@ public class Guard : MonoBehaviour
 		return false;
 	}
 
+	bool HeardDisturbance()
+    {
+		foreach (AudioSource i in noises)
+        {
+			if (i.isPlaying)
+			{
+				noiseScource = i;
+				return true;
+			}
+        }
+		return false;
+	}
+
 	IEnumerator FollowPath(Vector3[] waypoints)
 	{
 		transform.position = waypoints[0];
@@ -101,7 +123,12 @@ public class Guard : MonoBehaviour
 			if (transform.position == targetWaypoint)
 			{
 				targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
-				targetWaypoint = waypoints[targetWaypointIndex];
+				if (CanSeePlayer())
+					targetWaypoint = player.position;
+				else if (HeardDisturbance())
+					targetWaypoint = noiseScource.transform.position;
+				else
+					targetWaypoint = waypoints[targetWaypointIndex];
 				// stop walk anim
 				gameObject.GetComponent<Animator>().enabled = false;
 				// wait at waypoint
