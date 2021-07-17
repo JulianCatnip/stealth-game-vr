@@ -118,7 +118,7 @@ public class Guard : MonoBehaviour
 		while (true)
 		{
 			// (re)enable walk anim
-			gameObject.GetComponent<Animator>().enabled = true;
+			gameObject.GetComponent<Animator>().SetBool("isWalking", true);
 			transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
 			if (transform.position == targetWaypoint)
 			{
@@ -130,7 +130,7 @@ public class Guard : MonoBehaviour
 				else
 					targetWaypoint = waypoints[targetWaypointIndex];
 				// stop walk anim
-				gameObject.GetComponent<Animator>().enabled = false;
+				gameObject.GetComponent<Animator>().SetBool("isWalking", false);
 				// wait at waypoint
 				yield return new WaitForSeconds(waitTime);
 				// then turn

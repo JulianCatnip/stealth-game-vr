@@ -4548,9 +4548,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb3df7f60081614cb014a752ae997bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  waitTime: 0.2
-  turnSpeed: 120
+  speed: 1.5
+  waitTime: 5
+  turnSpeed: 90
   timeToSpotPlayer: 0.5
   spotlight: {fileID: 921455957}
   viewDistance: 5
