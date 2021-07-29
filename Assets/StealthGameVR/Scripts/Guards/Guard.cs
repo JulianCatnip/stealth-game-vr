@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ShadowDetect;
 
 public class Guard : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class Guard : MonoBehaviour
 	public Transform pathHolder;
 	Transform player;
 	Color originalSpotlightColour;
+
 
 
 	public AudioSource[] noises;
@@ -170,6 +172,17 @@ public class Guard : MonoBehaviour
 
 		Gizmos.color = Color.red;
 		Gizmos.DrawRay(transform.position, transform.forward * viewDistance);
+	}
+
+	public void halfViewDistance()
+    {
+		viewDistance = viewDistance / 2;
+    }
+
+	public void doubleViewDistance()
+	{
+		if(viewDistance < 5)
+			viewDistance = viewDistance * 2;
 	}
 
 }
