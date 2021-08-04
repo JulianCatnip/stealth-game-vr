@@ -16,7 +16,8 @@ public class HandController : MonoBehaviour
     }
     public Hand handType;
 
-    private XRController xrController;
+    // private ActionBasedController controller;
+    private InputDevice controller;
     private string output;
     private int lHandIndex;
     private int rHandIndex;
@@ -26,20 +27,38 @@ public class HandController : MonoBehaviour
 
     void Start()
     {
-        xrController = GetComponent<XRController>();
+        // xr controller input
+        if(handType == Hand.Left){
+            controller = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+        } else if(handType == Hand.Right) {
+            controller = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+        } else {
+            Debug.Log("Hand not assigned.");
+        }
+
+        // controller = GetComponent<ActionBasedController>();
+        triggerPressed = false;
+        gripPressed = false;
+        thumbTouched = false;
+        
+        // animator controller
         lHandIndex = avatarAnimator.GetLayerIndex("Hand L");
         rHandIndex = avatarAnimator.GetLayerIndex("Hand R");
         avatarAnimator.SetLayerWeight(lHandIndex, 1f);
         avatarAnimator.SetLayerWeight(rHandIndex, 1f);
-        triggerPressed = false;
-        gripPressed = false;
-        thumbTouched = false;
+    }
+
+    private void GetInput()
+    {
+        controller.TryGetFeatureValue(CommonUsages.primary2DAxisTouch, out thumbTouched); // thumbstick touch
+        controller.TryGetFeatureValue(CommonUsages.triggerButton, out triggerPressed); // left trigger
+        controller.TryGetFeatureValue(CommonUsages.gripButton, out gripPressed); // left grip
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Hand animation
+        // Hand animation pseudocode
         // if triggerButton pressed then "Okey Dokey"
             // animator.SetLayerWeight(animator.GetLayerIndex("Hands"), 1f);
             // animator.CrossFade ("Okey Dokey", 0.1f);
@@ -61,18 +80,16 @@ public class HandController : MonoBehaviour
         // else "Idle"
             // animator.SetLayerWeight(animator.GetLayerIndex("Hands"), 1f);
             // animator.CrossFade ("Idle", 0.1f);
-
-        xrController.inputDevice.IsPressed(InputHelpers.Button.Trigger, out triggerPressed);
-        xrController.inputDevice.IsPressed(InputHelpers.Button.Grip, out gripPressed);
-        xrController.inputDevice.IsPressed(InputHelpers.Button.Primary2DAxisTouch, out thumbTouched);
+        
+        GetInput();
 
         if (triggerPressed && gripPressed && thumbTouched) {
             switch (handType) {
                 case Hand.Left:
-                    avatarAnimator.CrossFade("Hold 2", animationFadeDuration, lHandIndex);
+                    avatarAnimator.CrossFade("Grab", animationFadeDuration, lHandIndex);
                     break;
                 case Hand.Right:
-                    avatarAnimator.CrossFade("Hold 2", animationFadeDuration, rHandIndex);
+                    avatarAnimator.CrossFade("Grab", animationFadeDuration, rHandIndex);
                     break;
             }
         } else if (triggerPressed && gripPressed) {
@@ -111,15 +128,6 @@ public class HandController : MonoBehaviour
                     avatarAnimator.CrossFade("Point 2", animationFadeDuration, rHandIndex);
                     break;
             }
-        // } else if(thumbTouched) {
-        //     switch (handType) {
-        //         case Hand.Left:
-        //             avatarAnimator.CrossFade("Peace", animationFadeDuration, lHandIndex);
-        //             break;
-        //         case Hand.Right:
-        //             avatarAnimator.CrossFade("Peace", animationFadeDuration, rHandIndex);
-        //             break;
-        //     }
         } else {
             switch (handType) {
                 case Hand.Left:
