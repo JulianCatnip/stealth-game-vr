@@ -162,6 +162,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Full Grab",
+                    "type": "Button",
+                    "id": "78d50861-0630-4d83-a2f8-72bbb40e1190",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -505,6 +513,39 @@
                     "action": "Thumbstick Touch",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "620cd906-63fb-4e36-b224-73f235c785b2",
+                    "path": "<XRController>{LeftHand}/gripPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Full Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1c7f0801-c21d-4e42-b457-c7a208a8f568",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Full Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e9771748-3e50-4daf-9c1c-8e2585992475",
+                    "path": "<XRSimulatedController>{LeftHand}/primary2DAxisTouch",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Full Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -620,6 +661,14 @@
                     "name": "Thumbstick Touch",
                     "type": "Button",
                     "id": "0f421cf2-0f7d-457e-b983-a5c6fc13f8c7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Full Grab",
+                    "type": "Button",
+                    "id": "fed009fb-e30d-43db-816b-062420e9484d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -953,6 +1002,39 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Thumbstick Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6d8688fa-1af9-4a41-85ca-09cf92490f8b",
+                    "path": "<XRController>{RightHand}/gripPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Full Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8fa2fe2b-5981-4657-8896-9a189acf8b19",
+                    "path": "<XRController>{RightHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Full Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dcd54737-05b1-4805-b483-60d13f9bd0f3",
+                    "path": "<XRSimulatedController>{RightHand}/primary2DAxisTouch",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Full Grab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

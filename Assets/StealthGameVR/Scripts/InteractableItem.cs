@@ -4,51 +4,49 @@ using UnityEngine.XR.Interaction.Toolkit;
 [RequireComponent(typeof(XRGrabInteractable))]
 public class InteractableItem : MonoBehaviour
 {
-    private XRGrabInteractable m_GrabInteractable;
+    private XRGrabInteractable grabInteractable;
     private int defaultLayer = 0;
     private int grabbedItemsLayer = 3;
-    public GameObject lGrabPoint;
-    public GameObject rGrabPoint;
     private HandController handController;
 
     // private bool m_Held;
 
     protected void OnEnable()
     {
-        m_GrabInteractable = GetComponent<XRGrabInteractable>();
+        grabInteractable = GetComponent<XRGrabInteractable>();
         
-        m_GrabInteractable.selectEntered.AddListener(OnSelectEntered);
-        m_GrabInteractable.selectExited.AddListener(OnSelectExited);
+        grabInteractable.selectEntered.AddListener(OnSelectEntered);
+        grabInteractable.selectExited.AddListener(OnSelectExited);
     }
 
     protected void OnDisable()
     {
-        m_GrabInteractable.selectEntered.RemoveListener(OnSelectEntered);
-        m_GrabInteractable.selectExited.RemoveListener(OnSelectExited);
+        grabInteractable.selectEntered.RemoveListener(OnSelectEntered);
+        grabInteractable.selectExited.RemoveListener(OnSelectExited);
     }
 
     protected virtual void OnSelectEntered(SelectEnterEventArgs args)
     {
         //m_Held = true;
+        handController = grabInteractable.selectingInteractor.GetComponent<HandController>();
         gameObject.layer = grabbedItemsLayer;
-        handController = args.interactor.gameObject.GetComponent<HandController>();
+
         if(handController.handType == HandController.Hand.Left){
-            gameObject.transform.SetParent(lGrabPoint.transform);
-            m_GrabInteractable.attachTransform = lGrabPoint.transform;
+            if(gameObject.transform.Find("GrabPointL") != null) {
+                gameObject.GetComponent<XRGrabInteractable>().attachTransform = gameObject.transform.Find("GrabPointL");
+            }
         } else {
-            gameObject.transform.SetParent(rGrabPoint.transform);
-            m_GrabInteractable.attachTransform = rGrabPoint.transform;
+            if(gameObject.transform.Find("GrabPointR") != null) {
+                gameObject.GetComponent<XRGrabInteractable>().attachTransform = gameObject.transform.Find("GrabPointR");
+            }
         }
 
-        //gameObject.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-        //Debug.Log("Entered");
+        gameObject.transform.SetParent(grabInteractable.selectingInteractor.attachTransform);
     }
 
     protected virtual void OnSelectExited(SelectExitEventArgs args)
     {
         //m_Held = false;
         gameObject.layer = defaultLayer;
-        gameObject.transform.SetParent(null);
-        //Debug.Log("Exited");
     }
 }

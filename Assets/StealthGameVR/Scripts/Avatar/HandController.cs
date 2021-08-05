@@ -17,10 +17,13 @@ public class HandController : MonoBehaviour
     public Hand handType;
 
     // private ActionBasedController controller;
+    private XRDirectInteractor directInteractor;
     private InputDevice controller;
     private string output;
     private int lHandIndex;
     private int rHandIndex;
+
+    private bool primaryButtonPressed;
     private bool triggerPressed;
     private bool gripPressed;
     private bool thumbTouched;
@@ -36,7 +39,9 @@ public class HandController : MonoBehaviour
             Debug.Log("Hand not assigned.");
         }
 
-        // controller = GetComponent<ActionBasedController>();
+        directInteractor = GetComponent<XRDirectInteractor>();
+
+        primaryButtonPressed = false;
         triggerPressed = false;
         gripPressed = false;
         thumbTouched = false;
@@ -50,6 +55,7 @@ public class HandController : MonoBehaviour
 
     private void GetInput()
     {
+        controller.TryGetFeatureValue(CommonUsages.primaryButton, out primaryButtonPressed); // thumbstick touch
         controller.TryGetFeatureValue(CommonUsages.primary2DAxisTouch, out thumbTouched); // thumbstick touch
         controller.TryGetFeatureValue(CommonUsages.triggerButton, out triggerPressed); // left trigger
         controller.TryGetFeatureValue(CommonUsages.gripButton, out gripPressed); // left grip
@@ -57,31 +63,19 @@ public class HandController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        // Hand animation pseudocode
-        // if triggerButton pressed then "Okey Dokey"
-            // animator.SetLayerWeight(animator.GetLayerIndex("Hands"), 1f);
-            // animator.CrossFade ("Okey Dokey", 0.1f);
-        // if gripButton pressed "Point 2"
-            // animator.SetLayerWeight(animator.GetLayerIndex("Hands"), 1f);
-            // animator.CrossFade ("Point 2", 0.1f);
-        // if ThumbTouch then "Peace"
-            // animator.SetLayerWeight(animator.GetLayerIndex("Hands"), 1f);
-            // animator.CrossFade ("Peace", 0.1f);
-        // if triggerButton and gripButton pressed then "Thumbs Up"
-            // animator.SetLayerWeight(animator.GetLayerIndex("Hands"), 1f);
-            // animator.CrossFade ("Thumbs Up", 0.1f);
-        // if gripButton and ThumbTouch then "Point 2"
-            // animator.SetLayerWeight(animator.GetLayerIndex("Hands"), 1f);
-            // animator.CrossFade ("Point 2", 0.1f);
-        // if triggerButton and gripButton and ThumbTouch then "Grab"
-            // animator.SetLayerWeight(animator.GetLayerIndex("Hands"), 1f);
-            // animator.CrossFade ("Grab", 0.1f);
-        // else "Idle"
-            // animator.SetLayerWeight(animator.GetLayerIndex("Hands"), 1f);
-            // animator.CrossFade ("Idle", 0.1f);
-        
+    {   
         GetInput();
+
+        if (primaryButtonPressed) {
+            // wenn item in der hand
+            if(directInteractor.selectTarget != null && directInteractor.selectTarget.gameObject.CompareTag("Stab")){
+                //Vector3 grabPointScale = directInteractor.selectTarget.transform.localScale;
+                Vector3 grabPointScale = directInteractor.attachTransform.localScale;
+                //directInteractor.selectTarget.transform.localScale = new Vector3(grabPointScale.x, grabPointScale.y * (-1), grabPointScale.z);
+                directInteractor.attachTransform.localScale = new Vector3(grabPointScale.x, grabPointScale.y * (-1), grabPointScale.z);
+            }
+            primaryButtonPressed = false;
+        }
 
         if (triggerPressed && gripPressed && thumbTouched) {
             switch (handType) {
