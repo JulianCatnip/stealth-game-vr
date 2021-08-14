@@ -68,7 +68,12 @@ public class HandController : MonoBehaviour
 
         if (primaryButtonPressed) {
             // wenn item in der hand
-            if(directInteractor.selectTarget != null && directInteractor.selectTarget.gameObject.CompareTag("Stab")){
+            if(directInteractor.selectTarget != null && 
+                (   directInteractor.selectTarget.gameObject.CompareTag("Ninjato") ||
+                    directInteractor.selectTarget.gameObject.CompareTag("Tanto") ||
+                    directInteractor.selectTarget.gameObject.CompareTag("Kunai")
+                )
+            ){
                 //Vector3 grabPointScale = directInteractor.selectTarget.transform.localScale;
                 Vector3 grabPointScale = directInteractor.attachTransform.localScale;
                 //directInteractor.selectTarget.transform.localScale = new Vector3(grabPointScale.x, grabPointScale.y * (-1), grabPointScale.z);

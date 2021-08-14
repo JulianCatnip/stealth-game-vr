@@ -5,7 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - Floor
-  - Stab
+  - Stone
+  - Shuriken
+  - Kunai
+  - Tanto
+  - Ninjato
+  - Pouch
+  - TantoHolder
+  - NinjatoHolder
+  - Hand
+  - Socket
   layers:
   - Default
   - TransparentFX
@@ -14,12 +23,12 @@ TagManager:
   - Water
   - UI
   - XRRig
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - EquippedItems
+  - HandController
+  - Avatar
+  - Socket
+  - Ground
+  - Raycast
   - 
   - 
   - 
