@@ -138,4 +138,9 @@ public class HandController : MonoBehaviour
             }
         }
     }
+
+    public InputDevice GetController()
+    {
+        return this.controller;
+    }
 }
