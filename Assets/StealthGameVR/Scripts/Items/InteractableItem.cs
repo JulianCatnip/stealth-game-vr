@@ -4,14 +4,14 @@ using UnityEngine.XR.Interaction.Toolkit;
 [RequireComponent(typeof(XRGrabInteractable))]
 public class InteractableItem : MonoBehaviour
 {
-    private XRGrabInteractable grabInteractable;
+    protected XRGrabInteractable grabInteractable;
     public int defaultLayer = 0;
     public int socketLayer = 7; // darf nur mit Hand kollidieren wenn ausgerüstet
     public int grabbedItemsLayer = 3; // darf nicht mit Körper kollidieren wenn in der Hand
-    private uint hapticChannel = 0;
-    private float hapticAmplitude = 0.5f;
-    private float hapticDuration = 0.3f;
-    private HandController handController;
+    protected uint hapticChannel = 0;
+    protected float hapticAmplitude = 0.5f;
+    protected float hapticDuration = 0.3f;
+    protected HandController handController;
     private Transform prevParent;
 
     protected void OnEnable()
@@ -137,5 +137,17 @@ public class InteractableItem : MonoBehaviour
         }
         
         // Debug.Log("InteractableItem OnSelectExited");
+    }
+
+    protected HandController GetHandController()
+    {
+        if(this.GetComponent<XRGrabInteractable>().selectingInteractor != null)
+        {
+            return this.handController = this.GetComponent<XRGrabInteractable>().selectingInteractor.GetComponent<HandController>();
+        } 
+        else
+        {
+            return null;
+        }
     }
 }

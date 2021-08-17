@@ -10,11 +10,9 @@ TagManager:
   - Kunai
   - Tanto
   - Ninjato
-  - Pouch
-  - TantoHolder
-  - NinjatoHolder
   - Hand
   - Socket
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -29,7 +27,7 @@ TagManager:
   - Socket
   - Ground
   - Raycast
-  - 
+  - Enemy
   - 
   - 
   - 
