@@ -189,7 +189,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &3785215672738999344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,4 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d2e2b416c1d874eb997f459b93819d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultLayer: 0
+  socketLayer: 7
+  grabbedItemsLayer: 3
   damage: 4
