@@ -27,7 +27,9 @@ public class VRFootIK : MonoBehaviour
         Vector3 rightFootPos = animator.GetIKPosition(AvatarIKGoal.RightFoot);
         RaycastHit hit;
 
-        bool hasHit = Physics.Raycast(rightFootPos + Vector3.up, Vector3.down, out hit);
+        int layerMask = LayerMask.GetMask("Ground");
+
+        bool hasHit = Physics.Raycast(rightFootPos + Vector3.up, Vector3.down, out hit, Mathf.Infinity, layerMask);
 
         if(hasHit)
         {
@@ -45,7 +47,7 @@ public class VRFootIK : MonoBehaviour
 
         Vector3 leftFootPos = animator.GetIKPosition(AvatarIKGoal.LeftFoot);
         
-        hasHit = Physics.Raycast(leftFootPos + Vector3.up, Vector3.down, out hit);
+        hasHit = Physics.Raycast(leftFootPos + Vector3.up, Vector3.down, out hit, Mathf.Infinity, layerMask);
 
         if(hasHit)
         {
