@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DestroyLamp : MonoBehaviour
 {
-
-  // Destroys the light component of a game object when there is a collision
+    /*
+    * Destroys the fireball gameobject containing the particle system and light component.
+    */
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Weapon")
+        if (other.CompareTag("Shuriken") || other.CompareTag("Tanto") || other.CompareTag("Ninjato") || other.CompareTag("Kunai") || other.CompareTag("Stone"))
         {
-            Destroy(this.GetComponent<Light>());
-            // this.GetComponent<Light>().enabled = false;
+            Destroy(this.transform.GetChild(0).gameObject);
         }
     }
 }

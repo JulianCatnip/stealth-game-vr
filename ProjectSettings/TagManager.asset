@@ -14,7 +14,7 @@ TagManager:
   - Tanto
   - Stone
   - Enemy
-  - floor
+  - Dummy
   layers:
   - Default
   - TransparentFX
@@ -22,7 +22,7 @@ TagManager:
   - GrabbedItems
   - Water
   - UI
-  - Obstacle
+  - XRRig
   - EquippedItems
   - HandController
   - Avatar
@@ -30,7 +30,7 @@ TagManager:
   - Ground
   - Raycast
   - Enemy
-  - XRRig
+  - PinPointer
   - 
   - 
   - 
