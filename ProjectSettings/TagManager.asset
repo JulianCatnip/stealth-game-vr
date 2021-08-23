@@ -6,22 +6,31 @@ TagManager:
   tags:
   - Floor
   - Light
+  - Socket
+  - Shuriken
+  - Ninjato
+  - Kunai
+  - Hand
+  - Tanto
+  - Stone
+  - Enemy
+  - floor
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - GrabbedItems
   - Water
   - UI
   - Obstacle
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - EquippedItems
+  - HandController
+  - Avatar
+  - Socket
+  - Ground
+  - Raycast
+  - Enemy
+  - XRRig
   - 
   - 
   - 
