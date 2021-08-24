@@ -12,40 +12,32 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         this.animator = this.GetComponent<Animator>(); 
-
-        if(this.CompareTag("Dummy"))
-        {
-            enemyIsDummy = true;
-            animator.SetBool("enemyIsDummy", true);
-        } else
-        {
-            enemyIsDummy = false;
-            animator.SetBool("enemyIsDummy", false);
-        }
     }
 
     void Update()
     {
         if(this.healthPoints < 1)
         {
-            if(enemyIsDummy)
-            {
-                animator.SetBool("isDead", true);
-            } else
-            {
-                animator.SetBool("isDead", true);
-            }
+            animator.SetBool("isDead", true);
         }
 
-        if(!enemyIsDummy)
-        {
-            animator.SetFloat("healthPoints", this.healthPoints);
-        }
+        animator.SetFloat("healthPoints", this.healthPoints);
     }
 
     public void ApplyDamage(float magnitude, float damage, float multiplier) 
     {
-        float finalDamage = damage * magnitude * multiplier;
+        float finalDamage;
+
+        // Its a sword stroke
+        if(magnitude > 2)
+        {
+            finalDamage = damage * magnitude * multiplier;
+        }
+        // Its a thrown weapon 
+        else
+        {
+            finalDamage = damage * multiplier;
+        }
         this.healthPoints -= finalDamage;
         
         Debug.Log("Applied damage: " + finalDamage);

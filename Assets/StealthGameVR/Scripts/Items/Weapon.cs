@@ -8,7 +8,7 @@ public class Weapon : InteractableItem
 
     void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.CompareTag("Enemy"))
+        if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Light"))
         {
             if(other.relativeVelocity.magnitude > 2 && GetHandController() != null)
             {

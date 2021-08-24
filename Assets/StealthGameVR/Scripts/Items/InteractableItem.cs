@@ -5,21 +5,22 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class InteractableItem : MonoBehaviour
 {
     protected XRGrabInteractable grabInteractable;
-    public int defaultLayer = 0;
-    public int socketLayer = 7; // darf nur mit Hand kollidieren wenn ausgerüstet
-    public int grabbedItemsLayer = 3; // darf nicht mit Körper kollidieren wenn in der Hand
+    private int defaultLayer = 0;
+    private int socketLayer = 7; // darf nur mit Hand kollidieren wenn ausgerüstet
+    private int grabbedItemsLayer = 3; // darf nicht mit Körper kollidieren wenn in der Hand
+    
     protected uint hapticChannel = 0;
     protected float hapticAmplitude = 0.5f;
     protected float hapticDuration = 0.3f;
     protected HandController handController;
     private Transform prevParent;
+
     private GameObject activeHitpoint;
     private bool weaponGotThrown = false;
     private bool selectGotExited = false;
     private float oldDamage;
-    
-    public bool selectExited = false;
-    public float speed = 10000.0f;
+    private float speed = 10.0f;
+    private float maxThrowingDistance;
 
     protected void OnEnable()
     {
@@ -169,8 +170,8 @@ public class InteractableItem : MonoBehaviour
             this.GetComponent<Weapon>().damage *= 100;
 
             // turn weapon towards target (bad implementation but coudnt do better)
-            transform.LookAt(this.activeHitpoint.transform.position, transform.right);
-            transform.eulerAngles = new Vector3(0.0f, 180.0f, 90.0f);
+            transform.LookAt(this.activeHitpoint.transform.position, transform.up);
+            transform.eulerAngles = new Vector3(90.0f, 0.0f, 0.0f);
 
             // move the weapon towards the target
             this.transform.position = Vector3.MoveTowards(this.transform.position, this.activeHitpoint.transform.position, this.speed*Time.fixedDeltaTime);
@@ -214,10 +215,30 @@ public class InteractableItem : MonoBehaviour
         }
     }
 
-    public void ThrowWeapon(GameObject activeHitpoint)
+    public void ThrowWeapon(GameObject activeHitpoint, float distance)
     {
-        // Call this function to initiate an auto aiming throw at selectexit
+        // Call this function to initiate an auto aiming throw at selectexit and fixedupdate
         this.activeHitpoint = activeHitpoint;
-        this.weaponGotThrown = true;
+        this.maxThrowingDistance = distance;
+        
+        if(ValidDistance())
+        {
+            this.weaponGotThrown = true;
+        } else
+        {
+            this.weaponGotThrown = false;
+        }
+    }
+
+    bool ValidDistance()
+    {
+        if(Vector3.Distance(this.transform.position, this.activeHitpoint.transform.position) < this.maxThrowingDistance + 1.0f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

@@ -24,6 +24,7 @@ public class PinPointer : MonoBehaviour
     private int directionFactor;
 
     public GameObject hitPoint;
+    public float raycastDistance = 100.0f;
     private GameObject activeHitPoint;
 
     private Vector3 acceleration;
@@ -46,19 +47,21 @@ public class PinPointer : MonoBehaviour
         }
     }
 
-    void Update() {
+    void FixedUpdate() {
         if(this.handType == Hand.Left)
         {
-            // if the grip button of this hand is pressed
-            if(this.leftHandController.GetGripButtonState() && ThrowableWeaponAvailable() && !this.leftHandController.GetTriggerButtonState())
+            // only if the grip button of this hand is pressed and a throwable weapon is available
+            if(this.leftHandController.GetGripButtonState() && !this.leftHandController.GetTriggerButtonState() && ThrowableWeaponAvailable())
             {
                 // selected item of other hand can be thrown
                 EnableLaserPointer();
-            } else if(ThrowableWeaponAvailable() && activeHitPoint != null) 
+            } 
+            else if(ThrowableWeaponAvailable() && this.activeHitPoint != null) 
             {
                 // observe for throw
                 WaitForThrow();
-            } else 
+            } 
+            else 
             {
                 DisableLaserPointer();
             }
@@ -66,14 +69,16 @@ public class PinPointer : MonoBehaviour
         else if(this.handType == Hand.Right)
         {
             // if the grip button of this hand is pressed
-            if(this.rightHandController.GetGripButtonState() && ThrowableWeaponAvailable() && !this.rightHandController.GetTriggerButtonState())
+            if(this.rightHandController.GetGripButtonState() && !this.rightHandController.GetTriggerButtonState() && ThrowableWeaponAvailable())
             {
                 // selected item of other hand can be thrown
                 EnableLaserPointer();
-            } else if(ThrowableWeaponAvailable() && activeHitPoint != null)  
+            } 
+            else if(ThrowableWeaponAvailable() && this.activeHitPoint != null)  
             {
                 WaitForThrow();
-            } else {
+            } 
+            else {
                 DisableLaserPointer();
             }
         }
@@ -91,30 +96,22 @@ public class PinPointer : MonoBehaviour
 
     private void EnableLaserPointer()
     {
-        if(Physics.Raycast(this.transform.position, directionFactor * this.transform.GetChild(0).TransformDirection(Vector3.right), out this.hitInfo, Mathf.Infinity))
+        // Enable Raycast only on Enemy and Light layer
+        if(Physics.Raycast(this.transform.position, directionFactor * this.transform.GetChild(0).TransformDirection(Vector3.right), out this.hitInfo, this.raycastDistance, LayerMask.GetMask("Enemy", "Light")))
         {
-            // Debug.Log(hitInfo); LayerMask.GetMask("Enemy")
+            // Make raycast visible
             this.lineRenderer.enabled = true;
             this.lineRenderer.SetPosition(0, this.transform.position);
             this.lineRenderer.SetPosition(1, hitInfo.point);
+            
             // save current raycast hit on primary button press
-            if(this.handType == Hand.Left){
-                if(this.leftHandController.GetPrimaryButtonState())
-                {
-                    if(this.hitPoint != null && this.hitInfo.transform.GetComponent<WeakPoint>() != null)
-                    {
-                        activeHitPoint = this.hitInfo.transform.GetComponent<WeakPoint>().SaveAndVisualizeHitPoint(this.hitInfo, this.hitPoint);
-                    }
-                }
-            } else if(this.handType == Hand.Right)
+            if(this.handType == Hand.Left && this.leftHandController.GetPrimaryButtonState())
             {
-                if(this.rightHandController.GetPrimaryButtonState())
-                {
-                    if(this.hitPoint != null && this.hitInfo.transform.GetComponent<WeakPoint>() != null)
-                    {
-                        activeHitPoint = this.hitInfo.transform.GetComponent<WeakPoint>().SaveAndVisualizeHitPoint(this.hitInfo, this.hitPoint);
-                    }
-                }
+                this.activeHitPoint = SetActiveHitPoint();
+            } 
+            else if(this.handType == Hand.Right && this.rightHandController.GetPrimaryButtonState())
+            {
+                this.activeHitPoint = SetActiveHitPoint();
             }
         }
         else
@@ -128,6 +125,26 @@ public class PinPointer : MonoBehaviour
         this.lineRenderer.enabled = false;
     }
 
+    GameObject SetActiveHitPoint()
+    {
+        if(this.hitPoint != null && this.hitInfo.transform.GetComponent<WeakPoint>() != null)
+        {
+            return this.hitInfo.transform.GetComponent<WeakPoint>().SaveAndVisualizeHitPoint(this.hitInfo, this.hitPoint);
+        } 
+        else if(this.hitInfo.transform.GetComponentInChildren<WeakPoint>() != null)
+        {
+            return this.hitInfo.transform.GetComponentInChildren<WeakPoint>().SaveAndVisualizeHitPoint(this.hitInfo, this.hitPoint);
+        } 
+        else if(this.hitInfo.transform.GetComponent<LightController>() != null)
+        {
+            return this.hitInfo.transform.GetComponent<LightController>().SaveAndVisualizeHitPoint(this.hitInfo, this.hitPoint);
+        } 
+        else
+        {
+            return null;
+        }
+    }
+
     void WaitForThrow()
     {
         acceleration = (this.directInteractor.selectTarget.GetComponent<Rigidbody>().velocity - lastVelocity) / Time.fixedDeltaTime;
@@ -138,7 +155,7 @@ public class PinPointer : MonoBehaviour
         {
             //Debug.Log(acceleration.magnitude);
             // Let the item get shot towards the hitpoint at selectexit
-            this.directInteractor.selectTarget.GetComponent<InteractableItem>().ThrowWeapon(activeHitPoint);
+            this.directInteractor.selectTarget.GetComponent<InteractableItem>().ThrowWeapon(this.activeHitPoint, this.raycastDistance);
 
         }
     }

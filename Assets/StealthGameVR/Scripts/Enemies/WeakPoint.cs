@@ -8,15 +8,15 @@ public class WeakPoint : MonoBehaviour
 {
     public float damageMultiplier;
     public Enemy damageReceiver;
-    private float magnitude;
-    private float damage;
+    protected float magnitude;
+    protected float damage;
 
     private static GameObject currentHitPoint; // only one hitpoint is allowed to exist in all instances of weak spots
     
     /*
     * If a weapon collides, apply damage to the receiver (enemy class).
     */
-    void OnCollisionEnter(Collision other) 
+    protected virtual void OnCollisionEnter(Collision other) 
     {
         // If the weapon has a blade
         if(other.gameObject.CompareTag("Tanto") || other.gameObject.CompareTag("Ninjato")) 
@@ -36,7 +36,6 @@ public class WeakPoint : MonoBehaviour
             this.damage = other.gameObject.GetComponent<Weapon>().damage;
             damageReceiver.ApplyDamage(this.magnitude, this.damage, damageMultiplier);
         }
-        
     }
 
     /*

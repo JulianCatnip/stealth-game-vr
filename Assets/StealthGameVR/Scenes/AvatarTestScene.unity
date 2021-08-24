@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 100
+  enemyIsDummy: 0
 --- !u!95 &74893921
 Animator:
   serializedVersion: 3
@@ -8004,6 +8005,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 401976, guid: 07ace05306ce58d49963df7396227e22, type: 3}
   m_PrefabInstance: {fileID: 1649591370}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1662642865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1408989384171906, guid: b2ebda948c9d90f40b799c15675df85f, type: 3}
+  m_PrefabInstance: {fileID: 1832032103}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1662642866
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662642865}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9735209, y: 0.8294134, z: 2.5781653}
+  m_Center: {x: 0.0026479363, y: 0.41251767, z: 0.010591745}
 --- !u!1001 &1675692424
 PrefabInstance:
   m_ObjectHideFlags: 0
