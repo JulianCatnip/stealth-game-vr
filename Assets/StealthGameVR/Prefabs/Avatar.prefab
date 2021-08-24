@@ -177,7 +177,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -272,6 +272,7 @@ MonoBehaviour:
   leftHandController: {fileID: 0}
   rightHandController: {fileID: 0}
   hitPoint: {fileID: 5878595451438283738, guid: 676cd8a825c6109448427bfa74d399df, type: 3}
+  raycastDistance: 100
 --- !u!1 &1071964181119818296
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,7 +1259,7 @@ Transform:
   m_GameObject: {fileID: 1072406821194536530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1074673861948731328}
   - {fileID: 1075066880097288684}
@@ -1768,6 +1769,7 @@ MonoBehaviour:
   leftHandController: {fileID: 0}
   rightHandController: {fileID: 0}
   hitPoint: {fileID: 5878595451438283738, guid: 676cd8a825c6109448427bfa74d399df, type: 3}
+  raycastDistance: 100
 --- !u!1 &1072541643238924682
 GameObject:
   m_ObjectHideFlags: 0
@@ -2762,11 +2764,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d2e2b416c1d874eb997f459b93819d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLayer: 0
-  socketLayer: 7
-  grabbedItemsLayer: 3
-  selectExited: 0
-  speed: 2
   damage: 3
 --- !u!114 &1073107610165161116
 MonoBehaviour:
@@ -2902,11 +2899,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d2e2b416c1d874eb997f459b93819d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLayer: 0
-  socketLayer: 7
-  grabbedItemsLayer: 3
-  selectExited: 0
-  speed: 2
   damage: 2
 --- !u!114 &1073107610187163965
 MonoBehaviour:
@@ -3060,24 +3052,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1073107610225952111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1073107610225927520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97d2e2b416c1d874eb997f459b93819d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultLayer: 0
-  socketLayer: 7
-  grabbedItemsLayer: 3
-  selectExited: 0
-  speed: 2
-  damage: 2
 --- !u!114 &1073107610225952110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3184,6 +3158,19 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+--- !u!114 &1073107610225952111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073107610225927520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d2e2b416c1d874eb997f459b93819d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 2
 --- !u!1 &1073107610245115390
 GameObject:
   m_ObjectHideFlags: 0
@@ -3836,11 +3823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d2e2b416c1d874eb997f459b93819d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLayer: 0
-  socketLayer: 7
-  grabbedItemsLayer: 3
-  selectExited: 0
-  speed: 2
   damage: 5
 --- !u!114 &1073107610568929417
 MonoBehaviour:
@@ -4238,24 +4220,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1073107610885304245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1073107610885394362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97d2e2b416c1d874eb997f459b93819d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultLayer: 0
-  socketLayer: 7
-  grabbedItemsLayer: 3
-  selectExited: 0
-  speed: 2
-  damage: 2
 --- !u!114 &1073107610885304244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4362,6 +4326,19 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+--- !u!114 &1073107610885304245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073107610885394362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d2e2b416c1d874eb997f459b93819d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 2
 --- !u!1 &1073107610888557822
 GameObject:
   m_ObjectHideFlags: 0
@@ -4571,19 +4548,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeda7bfbf984f2a4da5ab4b8967b115d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 1
+  m_Weight: 0
   m_Data:
-    m_Root: {fileID: 1074911648701000716}
-    m_Mid: {fileID: 1078033084687627874}
-    m_Tip: {fileID: 1075219201620495172}
-    m_Target: {fileID: 1073107611009932797}
-    m_Hint: {fileID: 1073107611386980685}
-    m_TargetPositionWeight: 1
-    m_TargetRotationWeight: 1
-    m_HintWeight: 1
+    m_Root: {fileID: 0}
+    m_Mid: {fileID: 0}
+    m_Tip: {fileID: 0}
+    m_Target: {fileID: 0}
+    m_Hint: {fileID: 0}
+    m_TargetPositionWeight: 0
+    m_TargetRotationWeight: 0
+    m_HintWeight: 0
     m_MaintainTargetPositionOffset: 0
     m_MaintainTargetRotationOffset: 0
-  m_SourceObjectsGUIToggle: 1
+  m_SourceObjectsGUIToggle: 0
   m_SettingsGUIToggle: 0
 --- !u!1 &1073107611009932794
 GameObject:
@@ -5405,11 +5382,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d2e2b416c1d874eb997f459b93819d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLayer: 0
-  socketLayer: 7
-  grabbedItemsLayer: 3
-  selectExited: 0
-  speed: 2
   damage: 3
 --- !u!114 &1073107611549816725
 MonoBehaviour:
@@ -5846,11 +5818,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d2e2b416c1d874eb997f459b93819d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLayer: 0
-  socketLayer: 7
-  grabbedItemsLayer: 3
-  selectExited: 0
-  speed: 2
   damage: 2
 --- !u!114 &1073107611748551431
 MonoBehaviour:
@@ -6314,11 +6281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d2e2b416c1d874eb997f459b93819d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLayer: 0
-  socketLayer: 7
-  grabbedItemsLayer: 3
-  selectExited: 0
-  speed: 2
   damage: 3
 --- !u!114 &1073107611926641883
 MonoBehaviour:

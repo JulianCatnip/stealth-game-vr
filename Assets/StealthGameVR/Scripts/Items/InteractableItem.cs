@@ -6,7 +6,7 @@ public class InteractableItem : MonoBehaviour
 {
     protected XRGrabInteractable grabInteractable;
     private int defaultLayer = 0;
-    private int socketLayer = 7; // darf nur mit Hand kollidieren wenn ausgerüstet
+    private int equippedLayer = 7; // darf nur mit Hand kollidieren wenn ausgerüstet
     private int grabbedItemsLayer = 3; // darf nicht mit Körper kollidieren wenn in der Hand
     
     protected uint hapticChannel = 0;
@@ -27,7 +27,6 @@ public class InteractableItem : MonoBehaviour
         grabInteractable = GetComponent<XRGrabInteractable>();
         
         grabInteractable.hoverEntered.AddListener(HoverEntered);
-        grabInteractable.hoverExited.AddListener(HoverExited);
         grabInteractable.selectEntered.AddListener(SelectEntered);
         grabInteractable.selectExited.AddListener(SelectExited);
     }
@@ -35,56 +34,43 @@ public class InteractableItem : MonoBehaviour
     protected void OnDisable()
     {
         grabInteractable.hoverEntered.RemoveListener(HoverEntered);
-        grabInteractable.hoverExited.RemoveListener(HoverExited);
         grabInteractable.selectEntered.RemoveListener(SelectEntered);
         grabInteractable.selectExited.RemoveListener(SelectExited);
     }
 
     protected virtual void HoverEntered(HoverEnterEventArgs args)
     {
-        // if the interactor is a socket
+        // Sends an haptic impulse to the controller in case a grabbed interactible hovers over a valid socket
         if(args.interactor.CompareTag("Socket") && args.interactor.CanSelect(args.interactable))
         {
-            // if the current selecting interactor of the interactable is a hand
             if(args.interactable.selectingInteractor.CompareTag("Hand"))
             {
-                // get the hand controller
                 handController = args.interactable.selectingInteractor.GetComponent<HandController>();
-                // initiate haptic feedback
                 handController.GetController().SendHapticImpulse(hapticChannel, hapticAmplitude, hapticDuration);
             }
-        // if the interactor is a hand
+        // Sends an haptic impulse to the controller in case the hand hovers over a eqipped socket
         } else if(args.interactor.CompareTag("Hand"))
         {
-            // if the current selecting interactor of the interactable is a socket
             if(args.interactable.selectingInteractor != null && args.interactable.selectingInteractor.CompareTag("Socket"))
             {
-                // get the hand controller
                 handController = args.interactor.GetComponent<HandController>();
-                // initiate haptic feedback
                 handController.GetController().SendHapticImpulse(hapticChannel, hapticAmplitude, hapticDuration);
             }
         }
-        //Debug.Log("Hover entered.");
-        //Debug.Log(args.interactable + ", " + args.interactor);
-    }
-
-    protected virtual void HoverExited(HoverExitEventArgs args)
-    {
-        // Debug.Log("Hover exited.");
     }
 
     protected virtual void SelectEntered(SelectEnterEventArgs args)
     {   
-        // Add item to an appropriate a layer
+        // Add interactible to the equipped layer in case the its in a socket
         if(args.interactor.CompareTag("Socket")){
-            gameObject.layer = socketLayer;
+            gameObject.layer = this.equippedLayer;
             if(gameObject.transform.childCount > 0){
                 foreach(Transform child in gameObject.transform){
-                    child.gameObject.layer = socketLayer;
+                    child.gameObject.layer = this.equippedLayer;
                 }
             }
-        } else { // the interactor is a hand
+        // Add interactible to the grabbed layer in case the its in a hand
+        } else {
             gameObject.layer = grabbedItemsLayer;
             if(gameObject.transform.childCount > 0){
                 foreach(Transform child in gameObject.transform){
@@ -94,9 +80,9 @@ public class InteractableItem : MonoBehaviour
 
         }
 
-        // Set up fitting hand attachment/pivot point
-        handController = args.interactor.GetComponent<HandController>();
+        // Set up fitting hand attachment/pivot point for the hand in case its grabbed by a hand and give haptiv feedback
         if(args.interactor.CompareTag("Hand")){
+            handController = args.interactor.GetComponent<HandController>();
             if(handController != null){
                 if(handController.handType == HandController.Hand.Left){
                     if(gameObject.transform.Find("GrabPointL") != null) {
@@ -112,15 +98,15 @@ public class InteractableItem : MonoBehaviour
                     }
                 }
             }
-            // give haptic feedback on controller
             handController.GetController().SendHapticImpulse(hapticChannel, hapticAmplitude, hapticDuration);
+        // Set up fitting attachment/pivot point for the socket in case its not grabbed by a hand
         } else {
             if(gameObject.transform.Find("PivotPoint") != null) {
                 gameObject.GetComponent<XRGrabInteractable>().attachTransform = gameObject.transform.Find("PivotPoint");
             }
         }
 
-        // Remember previous parent in scene hierarchy and set new parent
+        // Remember previous parent in scene hierarchy and set attachment transform of the interactor as parent
         this.prevParent = gameObject.transform.parent;
         gameObject.transform.SetParent(grabInteractable.selectingInteractor.attachTransform);
         

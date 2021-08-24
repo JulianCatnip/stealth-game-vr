@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 953460065708389778}
   m_Layer: 10
   m_Name: StoneAttach
-  m_TagString: Untagged
+  m_TagString: Socket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
