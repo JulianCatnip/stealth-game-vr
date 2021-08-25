@@ -112,34 +112,35 @@ public class Guard : MonoBehaviour
 	IEnumerator FollowPath(Vector3[] waypoints)
 	{
 		transform.position = waypoints[0];
+		if (waypoints.Length > 1) { 
+			int targetWaypointIndex = 1;
+			Vector3 targetWaypoint = waypoints[targetWaypointIndex];
+			transform.LookAt(targetWaypoint);
 
-		int targetWaypointIndex = 1;
-		Vector3 targetWaypoint = waypoints[targetWaypointIndex];
-		transform.LookAt(targetWaypoint);
-
-		while (true)
-		{
-			// (re)enable walk anim
-			gameObject.GetComponent<Animator>().SetBool("isWalking", true);
-			transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
-			if (transform.position == targetWaypoint)
+			while (true)
 			{
-				targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
-				if (CanSeePlayer())
-					targetWaypoint = player.position;
-				else if (HeardDisturbance())
-					targetWaypoint = noiseScource.transform.position;
-				else
-					targetWaypoint = waypoints[targetWaypointIndex];
-				// stop walk anim
-				gameObject.GetComponent<Animator>().SetBool("isWalking", false);
-				// wait at waypoint
-				yield return new WaitForSeconds(waitTime);
-				// then turn
-				yield return StartCoroutine(TurnToFace(targetWaypoint));
+				// (re)enable walk anim
+				gameObject.GetComponent<Animator>().SetBool("isWalking", true);
+				transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
+				if (transform.position == targetWaypoint)
+				{
+					targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
+					if (CanSeePlayer())
+						targetWaypoint = player.position;
+					else if (HeardDisturbance())
+						targetWaypoint = noiseScource.transform.position;
+					else
+						targetWaypoint = waypoints[targetWaypointIndex];
+					// stop walk anim
+					gameObject.GetComponent<Animator>().SetBool("isWalking", false);
+					// wait at waypoint
+					yield return new WaitForSeconds(waitTime);
+					// then turn
+					yield return StartCoroutine(TurnToFace(targetWaypoint));
+				}
+				// wait for the next frame
+				yield return null;
 			}
-			// wait for the next frame
-			yield return null;
 		}
 	}
 
