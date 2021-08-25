@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ShadowDetect;
 
 public class Guard : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class Guard : MonoBehaviour
 	public Transform pathHolder;
 	Transform player;
 	Color originalSpotlightColour;
+
 
 
 	public AudioSource[] noises;
@@ -76,7 +78,7 @@ public class Guard : MonoBehaviour
 	}
 
 	bool CanSeePlayer()
-	{	// player in view distance
+	{   // player in view distance
 		if (Vector3.Distance(transform.position, player.position) < viewDistance)
 		{
 			Vector3 dirToPlayer = (player.position - transform.position).normalized;
@@ -95,15 +97,15 @@ public class Guard : MonoBehaviour
 	}
 
 	bool HeardDisturbance()
-    {
+	{
 		foreach (AudioSource i in noises)
-        {
+		{
 			if (i.isPlaying)
 			{
 				noiseScource = i;
 				return true;
 			}
-        }
+		}
 		return false;
 	}
 
@@ -170,6 +172,17 @@ public class Guard : MonoBehaviour
 
 		Gizmos.color = Color.red;
 		Gizmos.DrawRay(transform.position, transform.forward * viewDistance);
+	}
+
+	public void halfViewDistance()
+	{
+		viewDistance = viewDistance / 2;
+	}
+
+	public void doubleViewDistance()
+	{
+		if (viewDistance < 5)
+			viewDistance = viewDistance * 2;
 	}
 
 }
