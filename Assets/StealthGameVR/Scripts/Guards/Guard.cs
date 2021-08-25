@@ -119,18 +119,24 @@ public class Guard : MonoBehaviour
 
 			while (true)
 			{
-				// (re)enable walk anim
+				// play walk anim
 				gameObject.GetComponent<Animator>().SetBool("isWalking", true);
 				transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
-				if (transform.position == targetWaypoint)
+				if (CanSeePlayer())
 				{
+					targetWaypoint = player.position;
+					waitTime = 0f;
+					speed = 3f;
+				}
+				else if (HeardDisturbance())
+					targetWaypoint = noiseScource.transform.position;
+				if (transform.position == targetWaypoint)
+				{	
 					targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
-					if (CanSeePlayer())
-						targetWaypoint = player.position;
-					else if (HeardDisturbance())
-						targetWaypoint = noiseScource.transform.position;
-					else
-						targetWaypoint = waypoints[targetWaypointIndex];
+					targetWaypoint = waypoints[targetWaypointIndex];
+					waitTime = 0.3f;
+					speed = 1.5f;
+					
 					// stop walk anim
 					gameObject.GetComponent<Animator>().SetBool("isWalking", false);
 					// wait at waypoint
