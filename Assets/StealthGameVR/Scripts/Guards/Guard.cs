@@ -181,14 +181,8 @@ public class Guard : MonoBehaviour
 		Gizmos.DrawRay(transform.position, transform.forward * viewDistance);
 	}
 
-	public void lowViewDistance()
+	public void setViewDistance(float f)
 	{
-		viewDistance = 2.5f;
+		viewDistance = f;
 	}
-
-	public void highViewDistance()
-	{
-			viewDistance = 5f;
-	}
-
 }
