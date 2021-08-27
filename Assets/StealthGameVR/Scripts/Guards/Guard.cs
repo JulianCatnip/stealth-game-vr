@@ -79,7 +79,7 @@ public class Guard : MonoBehaviour
 
 	bool CanSeePlayer()
 	{   // player in view distance
-		if (Vector3.Distance(transform.position, player.position) < viewDistance)
+		if (this.player != null && Vector3.Distance(transform.position, player.position) < viewDistance)
 		{
 			Vector3 dirToPlayer = (player.position - transform.position).normalized;
 			float angleBetweenGuardAndPlayer = Vector3.Angle(transform.forward, dirToPlayer);
