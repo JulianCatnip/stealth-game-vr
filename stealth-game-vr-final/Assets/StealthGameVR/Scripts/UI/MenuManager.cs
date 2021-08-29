@@ -19,7 +19,7 @@ public class MenuManager : MonoBehaviour
      * */
     public void EnterGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Intro");
     }
 
     /**
