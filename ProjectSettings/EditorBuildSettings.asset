@@ -5,12 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/StealthGameVR/Scenes/MenuScene.unity
-    guid: 374752b9b94ff7a478f8fc5f85ede73d
+  - enabled: 0
+    path: Assets/StealthGameVR/Scenes/Intro.unity
+    guid: 8c4bfa37d4acd3c4f885b060b87e47f0
   - enabled: 1
     path: Assets/StealthGameVR/Scenes/DemoScene.unity
     guid: e120d0e37ab427a4cb1c20085b85c472
+  - enabled: 1
+    path: Assets/StealthGameVR/Scenes/MenuScene.unity
+    guid: 374752b9b94ff7a478f8fc5f85ede73d
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: aee7586a2a9e4024aa1965ddd0933be2, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c551d541d069cdf4fa352a692ee09a58, type: 2}

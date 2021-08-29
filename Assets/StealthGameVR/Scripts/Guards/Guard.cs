@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ShadowDetect;
+using UnityEngine.SceneManagement;
 
 public class Guard : MonoBehaviour
 {
@@ -75,6 +76,9 @@ public class Guard : MonoBehaviour
 			if (OnGuardHasSpottedPlayer != null)
 				OnGuardHeardDisturbance();
 		}
+
+		if (Vector3.Distance(transform.position, player.position) <= 0.1)
+			SceneManager.LoadScene("DemoScene");
 	}
 
 	bool CanSeePlayer()

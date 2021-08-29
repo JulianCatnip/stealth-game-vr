@@ -15,6 +15,7 @@ TagManager:
   - Stone
   - Enemy
   - Dummy
+  - VideoPlayer
   layers:
   - Default
   - TransparentFX
