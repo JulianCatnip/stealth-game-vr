@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Floor
+  - Light
+  - Socket
+  - Shuriken
+  - Ninjato
+  - Kunai
+  - Hand
+  - Tanto
+  - Stone
+  - Enemy
+  - Dummy
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - GrabbedItems
+  - Water
+  - UI
+  - XRRig
+  - EquippedItems
+  - HandController
+  - Avatar
+  - Socket
+  - Ground
+  - Raycast
+  - Enemy
+  - PinPointer
+  - Light
+  - Cover
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
