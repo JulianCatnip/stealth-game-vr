@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ShadowDetect;
 
 public class Guard : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class Guard : MonoBehaviour
 	public Transform pathHolder;
 	Transform player;
 	Color originalSpotlightColour;
+
 
 
 	public AudioSource[] noises;
@@ -76,7 +78,7 @@ public class Guard : MonoBehaviour
 	}
 
 	bool CanSeePlayer()
-	{	// player in view distance
+	{   // player in view distance
 		if (Vector3.Distance(transform.position, player.position) < viewDistance)
 		{
 			Vector3 dirToPlayer = (player.position - transform.position).normalized;
@@ -95,49 +97,56 @@ public class Guard : MonoBehaviour
 	}
 
 	bool HeardDisturbance()
-    {
+	{
 		foreach (AudioSource i in noises)
-        {
+		{
 			if (i.isPlaying)
 			{
 				noiseScource = i;
 				return true;
 			}
-        }
+		}
 		return false;
 	}
 
 	IEnumerator FollowPath(Vector3[] waypoints)
 	{
 		transform.position = waypoints[0];
+		if (waypoints.Length > 1) { 
+			int targetWaypointIndex = 1;
+			Vector3 targetWaypoint = waypoints[targetWaypointIndex];
+			transform.LookAt(targetWaypoint);
 
-		int targetWaypointIndex = 1;
-		Vector3 targetWaypoint = waypoints[targetWaypointIndex];
-		transform.LookAt(targetWaypoint);
-
-		while (true)
-		{
-			// (re)enable walk anim
-			gameObject.GetComponent<Animator>().SetBool("isWalking", true);
-			transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
-			if (transform.position == targetWaypoint)
+			while (true)
 			{
-				targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
+				// play walk anim
+				gameObject.GetComponent<Animator>().SetBool("isWalking", true);
+				transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
 				if (CanSeePlayer())
+				{
 					targetWaypoint = player.position;
+					waitTime = 0f;
+					speed = 3f;
+				}
 				else if (HeardDisturbance())
 					targetWaypoint = noiseScource.transform.position;
-				else
+				if (transform.position == targetWaypoint)
+				{	
+					targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
 					targetWaypoint = waypoints[targetWaypointIndex];
-				// stop walk anim
-				gameObject.GetComponent<Animator>().SetBool("isWalking", false);
-				// wait at waypoint
-				yield return new WaitForSeconds(waitTime);
-				// then turn
-				yield return StartCoroutine(TurnToFace(targetWaypoint));
+					waitTime = 0.3f;
+					speed = 1.5f;
+					
+					// stop walk anim
+					gameObject.GetComponent<Animator>().SetBool("isWalking", false);
+					// wait at waypoint
+					yield return new WaitForSeconds(waitTime);
+					// then turn
+					yield return StartCoroutine(TurnToFace(targetWaypoint));
+				}
+				// wait for the next frame
+				yield return null;
 			}
-			// wait for the next frame
-			yield return null;
 		}
 	}
 
@@ -172,4 +181,8 @@ public class Guard : MonoBehaviour
 		Gizmos.DrawRay(transform.position, transform.forward * viewDistance);
 	}
 
+	public void setViewDistance(float f)
+	{
+		viewDistance = f;
+	}
 }
