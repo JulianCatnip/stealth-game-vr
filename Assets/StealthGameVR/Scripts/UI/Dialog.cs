@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Dialog : MonoBehaviour
 {
@@ -48,6 +49,11 @@ public class Dialog : MonoBehaviour
 
         this.pages[0].SetActive(true);
         this.activePageIndex = 0;
+    }
+
+    public void PlayIntro()
+    {
+        SceneManager.LoadScene("Intro");
     }
 
     public void Destroy()
