@@ -382,7 +382,7 @@ namespace ShadowDetect
         /// <returns></returns>
         public bool IsOnLight(Light light, Vector3 target_position)
         {
-            if (!light.isActiveAndEnabled || light.intensity == 0)
+            if (light == null || !light.isActiveAndEnabled || light.intensity == 0)
                 return false;
 
             //0: Spot - 1: Directional - 2: Point
