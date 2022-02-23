@@ -9,9 +9,15 @@
   - *in German (original):* <a title="Game Concept in German" target="_blank" href="https://www.juliancatnip.de/documents/stealth-game-vr/stealth-game-vr_konzept.pdf">stealth-game-vr_konzept.pdf</a>
   - *in English (DeepL translated):* <a title="Game Concept in English" target="_blank" href="https://www.juliancatnip.de/documents/stealth-game-vr/stealth-game-vr_concept_EN.pdf">stealth-game-vr_concept_EN.pdf</a>
 
-### Game features
-- Full body VR rig
-- A tutorial that introduces most of the essential game mechanics
+## Game features
+- **Full body VR rig**
+- A **tutorial** that introduces most of the essential **game mechanics**:
+  - **Equip** 4 types of different weapons on designated parts of your body
+  - Use weapons or stones to **destroy light sources** to stay hidden in the shadows
+  - Use weapons to **fight enemies** (training poles)
+  - **Auto-aim throw** mechanics:
+    - Use throwable weapons or stones to **destroy light sources from a distance**
+    - Use throwable weapons to **fight enemies from a distance**
 
 ## Technical details
 - Unity version:
