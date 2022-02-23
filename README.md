@@ -4,7 +4,7 @@
 - You will find your next mission on a desk in your house.
 - This mission might reveal the truth about your parents death.......
 
-*Note: This is a prototype and only the first part of the narrative will be covered in this game.*
+*Note: This is a prototype and only the a small part of the narrative will be covered in this game.*
 - Find the **full game concept**
   - in German (original): <a target="_blank" href="https://www.juliancatnip.de/documents/stealth-game-vr/stealth-game-vr_konzept.pdf" title="Game Concept in German">stealth-game-vr_konzept.pdf</a>
   - in English (DeepL translated): <a target="_blank" href="https://www.juliancatnip.de/documents/stealth-game-vr/stealth-game-vr_concept_EN.pdf" title="Game Concept in English">stealth-game-vr_concept_EN.pdf</a>
@@ -36,4 +36,7 @@
 - Start scene:
   - Assets/00_StealthGameVR/Scenes/**Menu.unity** or
   - you can skip the intro by playing the scene Assets/00_StealthGameVR/Scenes/**Demo.unity**
+- Find the **full game documentation**
+  - in German (original): <a target="_blank" href="https://www.juliancatnip.de/documents/stealth-game-vr/stealth-game-vr_dokumentation.pdf" title="Game Concept in German">stealth-game-vr_dokumentation.pdf</a>
+  - in English (DeepL translated): <a target="_blank" href="https://www.juliancatnip.de/documents/stealth-game-vr/stealth-game-vr_documentation_EN.pdf" title="Game Concept in English">stealth-game-vr_documentation_EN.pdf</a>
 
