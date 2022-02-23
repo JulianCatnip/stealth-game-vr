@@ -1,7 +1,5 @@
 # VR Stealth Game
 
-![Game environment](/readme_src/04.jpg)
-
 ## About the game
 - You play an assassin who lost their parents through the plague.
 - You will find your next mission on a desk in your house.
@@ -47,3 +45,4 @@
   - in German (original): <a target="_blank" href="https://www.juliancatnip.de/documents/stealth-game-vr/stealth-game-vr_dokumentation.pdf" title="Game Concept in German">stealth-game-vr_dokumentation.pdf</a>
   - in English (DeepL translated): <a target="_blank" href="https://www.juliancatnip.de/documents/stealth-game-vr/stealth-game-vr_documentation_EN.pdf" title="Game Concept in English">stealth-game-vr_documentation_EN.pdf</a>
 
+![Game environment](/readme_src/04.jpg)
