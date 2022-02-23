@@ -33,7 +33,7 @@
     - **00_StealthGameVR/**
     - [Third-party/Unity assets]/
     - ...
- - Start scene:
+- Start scene:
   - Assets/00_StealthGameVR/Scenes/**Menu.unity** or
   - you can skip the intro by playing the scene Assets/00_StealthGameVR/Scenes/**Demo.unity**
 
