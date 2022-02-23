@@ -22,20 +22,24 @@
 ## Technical details
 - Unity version:
   - 2020.3.12f1
+
 - Required packages:
   - Oculus XR Plugin (1.9.1)
   - XR Interaction Toolkit (1.0.0-pre.5)
   - XR Plugin Management (4.0.6)
   - Animation rigging (1.0.3)
   - Shadow Detect (2.0.0)
+
 - Game repository:
   - Assets/
     - **00_StealthGameVR/**
     - [Third-party/Unity assets]/
     - ...
-- Start scene:
+
+- Starting scene:
   - Assets/00_StealthGameVR/Scenes/**Menu.unity** or
   - you can skip the intro by playing the scene Assets/00_StealthGameVR/Scenes/**Demo.unity**
+
 - Find the **full game documentation**
   - in German (original): <a target="_blank" href="https://www.juliancatnip.de/documents/stealth-game-vr/stealth-game-vr_dokumentation.pdf" title="Game Concept in German">stealth-game-vr_dokumentation.pdf</a>
   - in English (DeepL translated): <a target="_blank" href="https://www.juliancatnip.de/documents/stealth-game-vr/stealth-game-vr_documentation_EN.pdf" title="Game Concept in English">stealth-game-vr_documentation_EN.pdf</a>
