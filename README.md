@@ -1,4 +1,7 @@
 # VR Stealth Game
+
+![Game environment](/readme_src/04.jpg)
+
 ## About the game
 - You play an assassin who lost their parents through the plague.
 - You will find your next mission on a desk in your house.
