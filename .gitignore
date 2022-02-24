@@ -45,9 +45,6 @@ sysinfo.txt
 *.cvpsf
 *.cvpsf.meta
 
-# Meta Files built by Visual Studio
-*.meta
-
 # Visual Studio cache directory
 /.vs/
 
